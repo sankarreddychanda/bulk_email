@@ -1,1 +1,1 @@
-# bulk_email
+# mass_mail

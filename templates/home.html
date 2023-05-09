@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>Confirm Mass Email</h1>
+
+  <p>The following emails will receive the email:</p>
+
+  <ul>
+    {% for email in email_list %}
+      <li>{{ email }}</li>
+    {% endfor %}
+  </ul>
+<a href="{% url 'send_mass_mail_confirm' %}">sending mass Bulk Email</a>
+
+</body>
+</html>

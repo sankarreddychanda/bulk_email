@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Mass Mail</title>
+</head>
+<body>
+  <h1>Send Mass Mail</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="csv_file">
+    <select name="template">
+        <option>-------select------</option>
+        <option value="email_template_education.html">Education Email Template</option>
+        <option value="email_template_banking.html">Banking Email Template</option>
+        <option value="email_template_emergency.html">Emergency Email Template</option>
+        <option value="email_template_health.html">Health Email Template</option>
+        <option value="email_template_insurannce.html">Insurance Email Template</option>
+        <!-- Add more options here as needed -->
+    </select>
+    <input type="submit" value="Send">
+</form>
+
+</body>
+</html>
+
