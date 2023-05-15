@@ -39,7 +39,7 @@ def send_mass_mail_confirm(request):
                 html_content = render_to_string(template, context)
 
                 data = {
-                    'from': 'Steve Parker  steve@affluencebizdata.com',
+                    'from': 'Steve Anderson  steve@affluencebizdata.com',
                     'to': email,
                     'subject': subject,
                     'html': html_content
