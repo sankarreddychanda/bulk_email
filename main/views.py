@@ -20,6 +20,12 @@ def send_mass_mail_confirm(request):
 
             # Get the selected template from the form data
             template = request.POST.get('template')
+            subject = request.POST.get('subject')
+            if template in('',None):
+                return HttpResponse('please select template')
+            if subject in('',None):
+                return HttpResponse('please select subject')
+
 
             for row in csv_data:
                 email = row[0]
@@ -28,14 +34,14 @@ def send_mass_mail_confirm(request):
                 # Prepare email data using the selected template
                 context = {
                     'name': name,
-                    'subject': 'Your Subject'
+                    'subject': subject
                 }
                 html_content = render_to_string(template, context)
 
                 data = {
-                    'from': 'Your Name steve@affluencebizdata.com',
+                    'from': 'Steve Parker  steve@affluencebizdata.com',
                     'to': email,
-                    'subject': 'Your Subject',
+                    'subject': subject,
                     'html': html_content
                 }
 
@@ -56,47 +62,6 @@ def send_mass_mail_confirm(request):
     return render(request, 'send_mass_mail.html')
 
 
-
-
-
-
-# def send_mass_mail_confirm(request):
-#     if request.method == 'POST':
-#         if 'csv_file' in request.FILES:
-#             csv_file = request.FILES['csv_file']
-#             csv_data = csv.reader(csv_file.read().decode('utf-8').splitlines())
-#             for row in csv_data:
-#                 email = row[0]
-#                 name = row[0]
-#                 # Prepare email data
-#                 context = {
-#                     'name': name,
-#                     'subject': 'Your Subject'
-#                 }
-#                 html_content = render_to_string('email_template_education.html', context)
-#
-#                 data = {
-#                     'from': 'Your Name steve@affluencebizdata.com',
-#                     'to': email,
-#                     'subject': 'Your Subject',
-#                     'html': html_content
-#                 }
-#
-#                 # Send email using Mailgun API
-#                 response = requests.post(
-#                     f'https://api.mailgun.net/v3/{settings.MAILGUN_DOMAIN}/messages',
-#                     auth=('api', settings.MAILGUN_API_KEY),
-#                     data=data
-#                 )
-#
-#                 if response.status_code == 200:
-#                     print(f'Successfully sent email to {email}')
-#                 else:
-#                     print(f'Error sending email to {email}: {response.content}')
-#
-#             return HttpResponseRedirect('/success/')
-#
-#     return render(request, 'send_mass_mail.html')
 
 def success(request):
     return HttpResponse('success')
