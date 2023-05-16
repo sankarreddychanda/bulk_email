@@ -128,3 +128,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
 STATIC_URL = 'static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MAILGUN_API_KEY = os.environ.get('MAILGUN_API_KEY')
+
+MAILGUN_DOMAIN = os.environ.get('MAILGUN_DOMAIN')
