@@ -2,28 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>without bootstrap</title>
+    <!-- Include necessary CSS and JS libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 </head>
 <body>
-<h4>Hi,</h4>
-
 <div>
-
-<p><b></b></p>
-
-
-
-
-<div>
-    <p><b>Best regards,</b></p>
- <p><b>Steve Anderson</b></p>
- <p><b>Sr. Marketing Specialist</b></p>
- </p>
+    <h1>Edit Email Template</h1>
 </div>
+      <form method="POST" enctype="multipart/form-data" action="/send-mass-mail-confirm/">
+        {% csrf_token %}
 
-    <span style="color:rgba(0, 0, 0, 0.663)">If you find this email unsolicited, please click here “List-UNSUBSCRIBE" and send we will ensure that you do not receive any further promotional email from our end.</span>
-</div>
+        Mail List: <input type="file" name="csv_file" required><br><br><br>
+        Subject: <input type="text" name="subject"  required><br><br>
 
+        <textarea id="summernote" name="content">{% if selected_template %}{% include selected_template %}{% endif %}</textarea><br>
 
+        <input type="submit" value="Send">
+    </form>
+    <!-- Include the Summernote JS library after the 'textarea' element -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize Summernote editor
+            $('#summernote').summernote({
+                placeholder: 'Hello stand alone ui',
+                tabsize: 2,
+                height: 120,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        });
+    </script>
 </body>
 </html>

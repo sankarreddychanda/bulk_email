@@ -19,12 +19,13 @@ def send_mass_mail_confirm(request):
             csv_data = csv.reader(csv_file.read().decode('utf-8').splitlines())
 
             # Get the selected template from the form data
-            template = request.POST.get('template')
+            template = request.POST.get('content')
+            print(template)
             subject = request.POST.get('subject')
-            if template in('',None):
-                return HttpResponse('please select template')
-            if subject in('',None):
-                return HttpResponse('please select subject')
+            if subject is None or template is None:
+                return HttpResponse('Please provide both subject and HTML content.')
+
+            html_content_str = template
 
 
             for row in csv_data:
@@ -36,7 +37,7 @@ def send_mass_mail_confirm(request):
                     'name': name,
                     'subject': subject
                 }
-                html_content = render_to_string(template, context)
+                html_content = html_content_str
 
                 data = {
                     'from': 'Steve Anderson  steve@affluencebizdata.com',
@@ -85,8 +86,23 @@ def send_mass_mail(request):
 
         return render(request, 'home.html', context)
 
-    return render(request, 'send_mass_mail.html')
+    return render(request, 'send_mass_mail_list.html')
 
 
 def dashboard(request):
     return render(request,'dashboard.html')
+# def summernote(request):
+#     return render(request,'email_template.html')
+
+
+
+def summernote(request):
+    if request.method == 'POST':
+        selected_template = request.POST.get('template')
+
+        if selected_template:
+            # Render the template below the form
+            return render(request, 'email_template.html', {'selected_template': selected_template})
+
+    # Return the initial form view if no template is selected or the request method is not POST
+    return render(request, 'email_template.html')
