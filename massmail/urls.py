@@ -26,6 +26,7 @@ urlpatterns = [
 
     path('send_mass_mail/', send_mass_mail, name='send_mass_mail'),
     path('success/',success),
+    path('summernote/',summernote),
 
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
