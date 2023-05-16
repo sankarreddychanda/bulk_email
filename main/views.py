@@ -29,16 +29,16 @@ def send_mass_mail_confirm(request):
 
 
             for row in csv_data:
-                email = row[0]
-                name = row[0]
+                email = row[1]
+                name = row[1]
 
                 # Prepare email data using the selected template
                 context = {
                     'name': name,
-                    'subject': f"{subject} {row[0]}"
+                    'subject': f"{subject} {row[1]}"
                 }
                 # template = request.POST.get('content')
-                insert_text = f"  {row[1]}"
+                insert_text = f"  {row[0]}"
                 index = template.index("Hi") + len("Hi")
                 updated_template = template[:index] + insert_text + template[index:]
                 html_content = updated_template
@@ -46,7 +46,7 @@ def send_mass_mail_confirm(request):
                 data = {
                     'from': 'Steve Anderson  steve@affluencebizdata.com',
                     'to': email,
-                    'subject': f"{subject} {row[1]}",
+                    'subject': f"{subject} {row[0]}",
                     'html': html_content
                 }
 
