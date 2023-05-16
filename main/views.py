@@ -20,7 +20,7 @@ def send_mass_mail_confirm(request):
 
             # Get the selected template from the form data
             template = request.POST.get('content')
-            print(template)
+            # print(template)
             subject = request.POST.get('subject')
             if subject is None or template is None:
                 return HttpResponse('Please provide both subject and HTML content.')
@@ -35,14 +35,18 @@ def send_mass_mail_confirm(request):
                 # Prepare email data using the selected template
                 context = {
                     'name': name,
-                    'subject': subject
+                    'subject': f"{subject} {row[0]}"
                 }
-                html_content = html_content_str
+                # template = request.POST.get('content')
+                insert_text = f"  {row[1]}"
+                index = template.index("Hi") + len("Hi")
+                updated_template = template[:index] + insert_text + template[index:]
+                html_content = updated_template
 
                 data = {
                     'from': 'Steve Anderson  steve@affluencebizdata.com',
                     'to': email,
-                    'subject': subject,
+                    'subject': f"{subject} {row[1]}",
                     'html': html_content
                 }
 
